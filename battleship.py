@@ -4,6 +4,9 @@ Created on Mon Mar  6 09:51:05 2017
 
 @author: meryem
 """
+# VERSION: Multiple battleships
+# Default variables below:
+ships = 1
 
 from random import randint
 
@@ -29,14 +32,31 @@ def random_row(board):
 def random_col(board):
     return randint(0, len(board[0]) - 1)
 
-# Place battleship at random location on board
-ship_row = random_row(board)
-ship_col = random_col(board)
+# Here is the while condition so we can make sure to get a good number of ships
+ships_good = False # condition defaults to false
+while ships_good == False:
+    # Request user input: how many battleships?
+    print "How many battleships would you like?"
+    ships = int(raw_input("Enter a number from 1 to 3: "))
+    # Test that it is an appropriate number of ships
+    if ships in range(1,4): # Range set for humans, not machines
+        print "Thank you. Let's get started!"
+        ships_good = True # makes the condition true
+    else:
+        print "Not a valid entry. Please try again."
 
-# REMOVE FROM FINAL VERSION
-# Print battleship location (for testing purposes only)
-print "Battleship location: " + str(ship_row) + ", " + str(ship_col)
+# Use user-input number of ships desired to randomly place ships on board
+ship_row = []
+ship_col = []
+for n in range(ships+1):
+    # Place one battleship at random location on board
+    ship_row[n] = random_row[n](board)
+    ship_col[n] = random_col[n](board)
 
+    # REMOVE FROM FINAL VERSION
+    # Print battleship location (for testing purposes only)
+    print "Battleship location: " + str(ship_row[n]) + ", " + str(ship_col[n])
+'''
 # Take user input for four turns
 for turn in range(4):
     guess_row = int(raw_input("Guess Row:")) - 1 # Subtracting 1 from user input...
@@ -58,3 +78,4 @@ for turn in range(4):
             print "Game Over"
 
 print_board(board)
+'''
